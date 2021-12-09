@@ -1,0 +1,36 @@
+{
+  "video": [
+    {
+      "video_id": "1",
+      "video_name": "camera01",
+      "pull_stream_format": "rtsp",
+      "pull_stream_url": "file:///opt/nvidia/deepstream/deepstream-5.1/samples/streams/1.mp4",
+      "on_off": "on"
+    },
+    {
+      "video_id": "2",
+      "video_name": "camera02",
+      "pull_stream_format": "rtsp",
+      "pull_stream_url": "file:///opt/nvidia/deepstream/deepstream-5.1/samples/streams/sample_720p.mp4",
+      "on_off": "off"
+    },
+    {
+      "video_id": "3",
+      "video_name": "camera03",
+      "pull_stream_format": "rtsp",
+      "pull_stream_url": "rtsp://admin:network123@192.168.3.64:554/Streaming/Channels/101?transportmode=unicast",
+      "on_off": "off"
+    }
+  ],
+  "kafka": {
+    "kafka_server": "171.217.92.33:58007",
+    "kafka_topic": "bvai-detected-result",
+    "on_off": "off"
+  },
+  "minio": {
+    "minio_server": "hncyminio.natapp1.cc",
+    "minio_access_key": "oss@hncysoft.com",
+    "minio_secret_key": "954502986@hncysoft.com",
+    "on_off": "off"
+  }
+}
