@@ -1,0 +1,6 @@
+# pip install -r requirements.txt
+
+numpy==1.19.4
+opencv-python
+kafka-python
+minio

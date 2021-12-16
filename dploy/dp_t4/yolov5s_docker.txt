@@ -1,0 +1,44 @@
+yolov5 训练的模型
+
+1.修改 yololayer.h 中的 static constexpr int CLASS_NUM = 80; 为自己的类别数
+2.修改 config_infer_primary_yoloV5.txt 文件 num-detected-classes 为自己的类别数
+3.修改nvdsparsebbox_Yolo.cpp  NUM_CLASSES_YOLO 为自己的类别数
+4.deepstream_imagedata-multistream_ll.py 
+5.yolov5s.engine,libnvdsinfer_custom_impl_Yolo.so,libmyplugins.so  -->  class_ll目录
+#4.修改yolov5.cpp 80 为自己的类别数   pgie_classes_str  为自己的类别
+#auto focus0 = focus(network, weightMap, *data, 3, 80, 3, "model.0");
+
+
+容器启动：
+1.xhost +
+2.sudo docker run -it --net=host --runtime nvidia --restart=always -v /tmp/.X11-unix/:/tmp/.X11-unix 171.217.92.33:5000/yolov5s:v1.0.1
+
+command
+LD_PRELOAD=./class_ll/libmyplugins.so python3 deepstream_imagedata-multistream_ll.py rtsp://admin:network123@192.168.1.64:554/Streaming/Channels/101?transportmode=unicast rtsp://admin:network123@192.168.1.64:554/Streaming/Channels/101?transportmode=unicast rtsp://admin:network123@192.168.2.64:554/Streaming/Channels/101?transportmode=unicast outputs
+
+
+将本地镜像推送到指定docker服务器
+
+第一步   修改/etc/docker/daemon.json
+	"insecure-registries": [ "172.18.18.90:5000"]     "IP:端口"
+第二步   docker 打tag
+	docker tag HelloWorld:1.0.0 192.168.1.100:8081/HelloWorld:1.0.0
+第三步   推送镜像
+	docker push 192.168.1.100:8081/HelloWorld:1.0.0
+
+
+Watchtower 管理容器更新
+
+
+docker run -d --name watchtower --restart=always -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower -c 
+
+默认更新所有容器，只想更新某些容器，将容器名字追加到命令后面
+--interval, -i - 设置更新检测时间间隔，单位为秒   如1小时：--interval 3600
+--schedule, -s - 设置定时检测更新时间。格式为 6 字段 Cron 表达式， 第一位是秒。比如每天凌晨 2 点检查一次更新：--schedule "0 0 2 * * *"
+
+
+MINIO_ACCESS_KEY=oss@hncysoft.com
+MINIO_SECRET_KET=954502986@hncysoft.com
+
+
+
